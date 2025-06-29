@@ -1,73 +1,107 @@
-# Welcome to your Lovable project
+🌀 Perp‑Dapp‑2.0
+Perp‑Dapp‑2.0 is a minimalistic perpetual futures trading dApp built with Foundry, Ethereum / USDC mock token, and a modern React + WAGMI / VIEM frontend.
 
-## Project info
+Deploy and interact with a simple on‑chain system that lets users:
 
-**URL**: https://lovable.dev/projects/84e0c366-6269-4549-add2-df17dafd98ae
+Open leveraged long or short positions
 
-## How can I edit this code?
+Add / remove margin
 
-There are several ways of editing your application.
+Close positions and settle PnL through a mock USDC token
 
-**Use Lovable**
+Get automatic USDC token funding for seamless testing
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/84e0c366-6269-4549-add2-df17dafd98ae) and start prompting.
+🚀 Features
+Smart contracts (Solidity + Foundry):
 
-Changes made via Lovable will be committed automatically to this repo.
+USDC.sol – simple ERC‑20 with controlled minting by the Perp contract
 
-**Use your preferred IDE**
+Perp.sol – manages margin, leverage, positions, and payout logic
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Frontend (React) using:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+WAGMI v2 + VIEM for wallet connection and contract interactions
 
-Follow these steps:
+Live Binance price polling to set entry price
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Clean UI: open/close long & short positions with streamlined feedback
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+🧪 Quick Start
+0. Prerequisites
+Node.js v18+
 
-# Step 3: Install the necessary dependencies.
-npm i
+Git, npm or yarn
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+1. Clone the repo
+bash
+Copy
+Edit
+git clone https://github.com/Nihallllll/Perp-Dapp-2.0.git
+cd Perp-Dapp-2.0
+2. Install dependencies
+bash
+Copy
+Edit
+cd frontend
+npm install
+3. Compile & deploy contracts
+bash
+Copy
+Edit
+cd ../contracts
+forge build
+forge test            # ensure everything compiles & passes
+forge deploy --rpc-url <your‑rpc‑url> --private-key <key>
+After deployment, copy the deployed USDC & Perp contract addresses into:
 
-**Edit a file directly in GitHub**
+makefile
+Copy
+Edit
+frontend/.env
+REACT_APP_PERP_ADDRESS=<deployed perp address>
+REACT_APP_USDC_ADDRESS=<deployed USDC address>
+4. Run frontend
+bash
+Copy
+Edit
+cd ../frontend
+npm start
+Visit http://localhost:3000 to trade perpetuals with mock USDC.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+🔧 Fund the dApp for Demonstration
+By default, only the Perp contract can mint USDC to users. For a seamless showcase:
 
-**Use GitHub Codespaces**
+After deploying, run:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+solidity
+Copy
+Edit
+usdc.setPerp(perpAddress);  // assign Perp contract as USDC minter
+When users open/close positions, they’ll receive mock USDC instantly to rabbit start trading.
 
-## What technologies are used for this project?
+📂 Project Structure
+bash
+Copy
+Edit
+.
+├── contracts/        # Solidity contracts + Forge setup
+│   ├── USDC.sol
+│   └── Perp.sol
+├── frontend/         # React + Typescript UI
+│   ├── src/
+│   │   ├── components/
+│   │   └── pages/
+│   ├── .env           # Add deployed contract addresses and RPC
+│   └── package.json
+├── foundry.toml      # Foundry config
+└── README.md
+🤝 Contributing
+Open issues or PRs for feature suggestions, bug fixes, or UX improvements
 
-This project is built with:
+Add margin management, UI charts, or support non‑EVM chains
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Check forge test and npm test before submitting
 
-## How can I deploy this project?
+⚖️ License
+This project is open‑source under the MIT License, unless otherwise specified.
 
-Simply open [Lovable](https://lovable.dev/projects/84e0c366-6269-4549-add2-df17dafd98ae) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
